@@ -8,7 +8,7 @@ https://www.sanfoundry.com/1000-python-questions-answers/
 
 https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/
 '''
-req = Request('https://www.sanfoundry.com/1000-fluid-mechanics-questions-answers/',
+req = Request('https://www.javatpoint.com/os-tutorial',
               headers={'User-Agent': 'Mozilla/5.0'})
 webpage = urllib.request.urlopen(req).read()
 html_page = urlopen(req)
@@ -17,12 +17,12 @@ soup = BeautifulSoup(html_page, "lxml")
 
 links = []
 for link in soup.findAll('a'):
-    x = re.search("-answers-", str(link))
+    x = re.search("https://www.javatpoint.com/os-", str(link))
     if x:
         links.append(link.get('href'))
 
 for link in links:
-    with open("output.txt", "a") as f:
+    with open("MTNATION.txt", "a") as f:
 
         print(link, file=f)
         print('\n', file=f)
