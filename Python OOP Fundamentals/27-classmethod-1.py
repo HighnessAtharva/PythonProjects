@@ -24,6 +24,7 @@
 
 
 class MyClass(object):
+    # This @classsmethod is an inbuilt method and requires no definition. It makes the class so that it is not bound.
     @classmethod
     def class_1(cls):
         print("Class method 1")
@@ -33,8 +34,8 @@ class MyClass(object):
 
 
 print("Calling the class `MyClass` directly without an instance:")
-MyClass.class_1()
-# MyClass.class_2()
+MyClass.class_1()  # This being a @classmethod is not bound and can be accessed by classes and instances. No need to pass 'self' arguments
+# MyClass.class_2() # This will raise error if no positional arguments passed.
 
 # NOTE: You will want to comment `MyClass.class_2()` once you hit the `TypeError`
 # to continue with the examples below.

@@ -1,4 +1,3 @@
-
 # Reference: Decorators 101 - A Gentle Introduction to Functional Programming.
 # By Jillian Munson - PyGotham 2014.
 # https://www.youtube.com/watch?v=yW0cK3IxlHc
