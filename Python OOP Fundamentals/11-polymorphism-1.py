@@ -24,26 +24,27 @@ class Animal(object):
         self.name = name
 
     def eat(self, food):
-        print('{0} eats {1}'.format(self.name, food))
+        print(f'{self.name} eats {food}')
 
 
 class Dog(Animal):
 
     def fetch(self, thing):
-        print('{0} goes after the {1}!'.format(self.name, thing))
+        print(f'{self.name} goes after the {thing}!')
 
     def show_affection(self):
-        print('{0} wags tail'.format(self.name))
+        print(f'{self.name} wags tail')
 
 
 class Cat(Animal):
 
     def swatstring(self):
-        print('{0} shreds more string'.format(self.name))
+        print(f'{self.name} shreds more string')
 
     def show_affection(self):
-        print('{0} purrs'.format(self.name))
+        print(f'{self.name} purrs')
 
 
+# iterator over the class objects in one go
 for a in (Dog('Rover'), Cat('Fluffy'), Cat('Lucky'), Dog('Scout')):
     a.show_affection()
