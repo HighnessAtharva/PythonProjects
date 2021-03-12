@@ -3,13 +3,12 @@
 # This code shows that an Instance can access it's own
 # attributes as well as Class attributes.
 
-# We have a class attribute named 'count', and we add 1 to
-# it each time we create an instance. This can help count the
-# number of instances at the time of instantiation.
-
 
 class InstanceCounter(object):
     count = 0
+    # We have a class attribute named 'count', and we add 1 to
+    # it each time we create an instance. This can help count the
+    # number of instances at the time of instantiation.
 
     def __init__(self, val):
         self.val = val
@@ -21,6 +20,7 @@ class InstanceCounter(object):
     def get_val(self):
         print(self.val)
 
+    # gets the total number of times the class was instantiated via an object
     def get_count(self):
         print(InstanceCounter.count)
 
@@ -30,5 +30,6 @@ b = InstanceCounter(10)
 c = InstanceCounter(15)
 
 for obj in (a, b, c):
-    print("value of obj: %s" % obj.get_val())
-    print("Count : %s" % obj.get_count())
+
+    print("value of obj: ", obj.get_val())
+    print("Count : ", obj.get_count())
