@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 19-decorators-1.py
 # Decorators, as simple as it gets :)
 
@@ -43,6 +41,7 @@ def my_decorator(my_function):    # <-- (4)
 @my_decorator       # <-- (3)
 def my_decorated():    # <-- (2) <-- (8)
     print("This happened!")   # <-- (9)
+
 
 if __name__ == '__main__':
     my_decorated()    # <-- (1)

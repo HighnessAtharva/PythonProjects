@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 12-polymorphism-2.py
 
 # Another example for Polymorphism are the several inbuilt

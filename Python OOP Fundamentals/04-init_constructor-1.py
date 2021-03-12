@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 04-init_constructor.py
 
 # __init__() is a constructor method which helps to
@@ -21,6 +19,7 @@ class MyNum(object):
     def increment(self):
         self.val = self.val + 1
         print(self.val)
+
 
 dd = MyNum()
 dd.increment()  # will print 1

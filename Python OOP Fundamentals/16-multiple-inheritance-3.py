@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 16-multiple-inheritance-3.py
 
 # Python supports multiple inheritance
@@ -47,6 +45,7 @@ class C(A):
 
 class D(B, C):
     pass
+
 
 d_instance = D()
 d_instance.dothis()

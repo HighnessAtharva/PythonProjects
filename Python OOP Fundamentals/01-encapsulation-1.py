@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # encapsulation-1.py
 
 # Encapsulation means to preserve data in classes using methods
@@ -19,6 +17,7 @@ class MyClass(object):
     def get_val(self):
         print(self.value)
         return self.value
+
 
 a = MyClass()
 b = MyClass()

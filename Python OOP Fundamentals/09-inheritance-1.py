@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 09-inheritance-1.py
 
 # The code below shows how a class can inherit from another class.
@@ -21,6 +19,7 @@ class Date(object):
 class Time(Date):
     def get_time(self):
         print("07:00:00")
+
 
 # Creating an instance from `Date`
 dt = Date()

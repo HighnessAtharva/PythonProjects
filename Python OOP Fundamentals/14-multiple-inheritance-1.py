@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 14-multiple-inheritance-1.py
 
 # Python supports multiple inheritance and uses a depth-first order
@@ -40,6 +38,7 @@ class C(object):
 
 class D(B, C):
     pass
+
 
 d_instance = D()
 d_instance.dothis()  # <== This should print from class A.

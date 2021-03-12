@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 10-inheritance-2.py
 
 # The code below shows another example of inheritance

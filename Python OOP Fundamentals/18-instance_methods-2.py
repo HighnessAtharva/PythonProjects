@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # 18-instance_methods.py
 
 # Instance methods are the normal way of accessing methods, seen in all
@@ -41,6 +39,7 @@ class InstanceCounter(object):
 
     def get_count(self):
         return InstanceCounter.count
+
 
 a = InstanceCounter(5)
 b = InstanceCounter(10)

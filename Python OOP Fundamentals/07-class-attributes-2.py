@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 07-class-attributes-2.py
 
 # The code below shows two important points:
@@ -19,6 +17,7 @@
 
 class YourClass(object):
     classy = "class value"
+
 
 dd = YourClass()
 print(dd.classy)  # < This should return the string "class value"

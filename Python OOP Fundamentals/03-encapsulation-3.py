@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 03-encapsulation-3.py
 
 # Here we look at another example, where we have three methods
@@ -34,6 +32,7 @@ class MyInteger(object):
     def increment_val(self):
         self.val = self.val + 1
         print(self.val)
+
 
 a = MyInteger()
 a.set_val(10)

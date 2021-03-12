@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 17-instance_methods-1.py
 
 # Instance methods are also known as Bound methods since the methods
@@ -10,6 +8,7 @@
 class A(object):
     def method(*argv):
         return argv
+
 
 a = A()
 print(a.method)

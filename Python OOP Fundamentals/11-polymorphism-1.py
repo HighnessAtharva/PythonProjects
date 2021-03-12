@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 11-polymorphism-1.py
 
 # Polymorphism means having the same interface/attributes in different
@@ -45,6 +43,7 @@ class Cat(Animal):
 
     def show_affection(self):
         print('{0} purrs'.format(self.name))
+
 
 for a in (Dog('Rover'), Cat('Fluffy'), Cat('Lucky'), Dog('Scout')):
     a.show_affection()

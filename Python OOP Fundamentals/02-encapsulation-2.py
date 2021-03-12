@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # encapsulation-2.py
 
 # This example builds on top of `encapsulation-1.py`.
@@ -16,6 +14,7 @@ class MyClass(object):
 
     def get_val(self):
         print(self.value)
+
 
 a = MyClass()
 b = MyClass()

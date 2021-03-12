@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 15-multiple-inheritance-2.py
 
 # Python supports multiple inheritance
@@ -40,6 +38,7 @@ class D(B, C):
     """Multiple Inheritance,
     D inheriting from both B and C"""
     pass
+
 
 d_instance = D()
 

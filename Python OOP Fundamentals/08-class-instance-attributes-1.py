@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 08-class-instance-attributes-1.py
 
 # This code shows that an Instance can access it's own
@@ -25,6 +23,7 @@ class InstanceCounter(object):
 
     def get_count(self):
         print(InstanceCounter.count)
+
 
 a = InstanceCounter(5)
 b = InstanceCounter(10)

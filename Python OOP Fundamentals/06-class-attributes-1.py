@@ -1,5 +1,3 @@
-#!/usr/bin/env python2.7
-
 # 06-class-attributes-1.py
 
 # Here we define an attribute under the class `YourClass`
@@ -14,6 +12,7 @@ class YourClass(object):
 
     def set_val(self):
         self.insty = 100
+
 
 dd = YourClass()
 dd.classy   # This will fetch the class attribute 10.
