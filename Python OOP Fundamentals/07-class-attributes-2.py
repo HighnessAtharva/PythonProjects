@@ -27,5 +27,5 @@ print(dd.classy)    # This should return the string "Instance value"
 
 # This will delete the value set for 'dd.classy' in the instance.
 del dd.classy
-# Since the overriding attribute was deleted, this will print 'class value'.
+# Since the overriding attribute was deleted, the default class attribute value will be printed. I.e--> 'class value'.
 print(dd.classy)
