@@ -17,7 +17,7 @@ class MyNum(object):
         self.val = 0
 
     def increment(self):
-        self.val = self.val + 1
+        self.val += 1
         print(self.val)
 
 
