@@ -5,12 +5,12 @@
 
 # The attribute defined in the class is called `class attributes`
 # and the attribute defined in the function is called `instance attributes`.
-
-
 class YourClass(object):
+    # This is a class attribute
     classy = 10
 
     def set_val(self):
+        # This is an instance attribute
         self.insty = 100
 
 
