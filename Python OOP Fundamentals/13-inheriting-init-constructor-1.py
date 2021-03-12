@@ -12,7 +12,7 @@ class Animal(object):
 
 class Dog(Animal):
     def fetch(self, thing):
-        print('%s goes after the %s' % (self.name, thing))
+        print(f'{self.name} goes after the {thing}')
 
 
 d = Dog("Roger")
