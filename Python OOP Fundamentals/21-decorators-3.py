@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 # Reference: Decorators 101 - A Gentle Introduction to Functional Programming.
 # By Jillian Munson - PyGotham 2014.
@@ -27,6 +26,7 @@ def my_decorator(inner):
 @my_decorator
 def decorated(number):
     print("This happened : " + str(number))
+
 
 if __name__ == "__main__":
     decorated(5)

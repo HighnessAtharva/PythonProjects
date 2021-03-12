@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # 29-staticmethod-1.py
 
 """

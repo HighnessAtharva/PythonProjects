@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 41-super-2.py
 
 # For more information on how this works, refer:
@@ -35,6 +33,7 @@ class MyChildClass(MyClass):
 
     def print_doc(self):
         print("Documentation for MyChild Class")
+
 
 my_instance = MyChildClass()
 my_instance.my_set_val(100)

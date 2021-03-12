@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 25-decorators-7.py
 
 # Reference https://www.youtube.com/watch?v=Slf1b3yUocc

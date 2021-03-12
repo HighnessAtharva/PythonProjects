@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 
 def decorator(inner):
     def inner_decorator(*args, **kwargs):

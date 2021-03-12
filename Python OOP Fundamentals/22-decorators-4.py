@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 # Reference: Decorators 101 - A Gentle Introduction to Functional Programming.
 # By Jillian Munson - PyGotham 2014.
@@ -25,6 +24,7 @@ def decorator(inner):
 @decorator
 def decorated(string_args):
     print("This happened : " + string_args)
+
 
 if __name__ == "__main__":
     decorated("Hello, how are you?")

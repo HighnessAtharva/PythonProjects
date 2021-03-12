@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 34-abstractclasses-1.py
 
 # This code snippet talks about Abstract Base Classes (abc).
@@ -51,6 +49,7 @@ class MyClass(My_ABC_Class):
     def hello(self):
         print("\nCalling the hello() method")
         print("I'm *not* part of the Abstract Methods defined in My_ABC_Class()")
+
 
 my_class = MyClass()
 

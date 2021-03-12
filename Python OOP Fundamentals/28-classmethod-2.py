@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 28-classmethod-2.py
 
 # Reference: https://jeffknupp.com/blog/2014/06/18/improve-your-python-python-classes-and-object-oriented-programming/
@@ -31,6 +29,7 @@ class MyClass(object):
     @classmethod
     def get_count(cls):
         return cls.count
+
 
 object_1 = MyClass(10)
 print("\nValue of object : %s" % object_1.get_val())

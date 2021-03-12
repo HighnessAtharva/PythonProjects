@@ -1,6 +1,4 @@
-#!/usr/bin/env python
 from __future__ import print_function
-
 # 30-staticmethod-2.py
 
 # Refer
@@ -27,6 +25,7 @@ class MyClass(object):
     @staticmethod
     def status():
         print("The total number of instances are ", MyClass.count)
+
 
 print(MyClass.count)
 

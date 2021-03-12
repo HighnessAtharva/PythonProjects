@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 23-decorators-5.py
 
 # Reference : https://www.youtube.com/watch?v=bxhuLgybIro
@@ -21,5 +19,6 @@ def handle_exceptions(func_name):
 @handle_exceptions
 def divide(x, y):
     return x / y
+
 
 print(divide(8, 0))

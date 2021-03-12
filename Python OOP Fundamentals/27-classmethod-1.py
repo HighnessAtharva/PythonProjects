@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # 19-class_methods-1.py
 
 # A classmethod is an inbuilt decorator which is called on functions via

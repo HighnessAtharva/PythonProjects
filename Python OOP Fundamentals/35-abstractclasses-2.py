@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 34-abstractclasses-1.py
 
 # This code snippet talks about Abstract Base Classes (abc).
@@ -19,7 +17,7 @@
 # methods of their own, but *should always* implement the methods defined in
 # the parent ABC Class.
 
-# NOTE: This code will error out. This is an example on what 
+# NOTE: This code will error out. This is an example on what
 # happens when a child class doesn't implement the abstract methods
 # defined in the Parent Class.
 
@@ -50,6 +48,7 @@ class MyClass(My_ABC_Class):
     def hello(self):
         print("\nCalling the hello() method")
         print("I'm *not* part of the Abstract Methods defined in My_ABC_Class()")
+
 
 my_class = MyClass()
 

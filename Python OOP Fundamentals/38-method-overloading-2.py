@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 37-method-overloading-1.py
 
 # Reference: O'Reilly Learning Path:

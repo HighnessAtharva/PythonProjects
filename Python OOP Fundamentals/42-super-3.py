@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 42-super-3.py
 
 # super() and __init__()
@@ -30,6 +28,7 @@ class D(B, C):
     def foo(self):
         print("D")
         super(D, self).foo()
+
 
 d = D()
 d.foo()

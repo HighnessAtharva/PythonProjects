@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 40-super-1.py
 
 # This is an example on how super() works
@@ -23,6 +21,6 @@ class ChildClass(MyClass):
         # Calling the `func()` method from the Parent class.
         super(ChildClass, self).func()
 
+
 my_instance_2 = ChildClass()
 my_instance_2.func()
-

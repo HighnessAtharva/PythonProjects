@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 26-class-decorators.py
 
 # Reference : https://www.youtube.com/watch?v=Slf1b3yUocc
@@ -9,7 +7,7 @@
 # But decorators can be applied to Classes as well.
 # This example deals with class decorators.
 
-# NOTE: If you are creating a decorator for a class, you'll it 
+# NOTE: If you are creating a decorator for a class, you'll it
 # to return a Class.
 
 # NOTE: Similarly, if you are creating a decorator for a function,
@@ -31,6 +29,7 @@ class Name(object):
 
     def full_name(self):
         return " ".join([self.first_name, self.last_name])
+
 
 result = Name("Vimal", "A.R").full_name()
 print("Full name: {0}".format(result))

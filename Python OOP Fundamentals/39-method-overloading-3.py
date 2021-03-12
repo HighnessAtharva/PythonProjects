@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 39-method-overloading-3.py
 
 # We've seen that inherited methods can be overloaded.
@@ -23,6 +21,7 @@ class MyList(list):
         if index > 0:
             index -= 1
         list.__setitem__(self, index, value)
+
 
 x = MyList(['a', 'b', 'c'])
 print(x)
