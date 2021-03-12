@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 30-magicmethods-1.py
 
 # In the backend, python is mostly objects and method

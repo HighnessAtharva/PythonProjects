@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # 31-magicmethods-2.py
 
 # In the backend, python is mostly objects and method
@@ -17,3 +15,4 @@ print(my_list_1 + my_list_2)
 
 print("\nCalling `__add__()` with both lists")
 print(my_list_1.__add__(my_list_2))
+# dunder method __add__ is comparable to + operator in list addition.

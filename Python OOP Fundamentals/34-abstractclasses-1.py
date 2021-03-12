@@ -13,7 +13,7 @@
 # child classes, ie.. to create Abstract Methods, we use the decorator
 # @abc.abstractmethod on the methods we need.
 
-# The child class which inherits from an Abstract Base Class can implement
+# NOTE: The child class which inherits from an Abstract Base Class can implement
 # methods of their own, but *should always* implement the methods defined in
 # the parent ABC Class.
 
