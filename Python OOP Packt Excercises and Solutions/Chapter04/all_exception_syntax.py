@@ -4,7 +4,7 @@ some_exceptions = [ValueError, TypeError, IndexError, None]
 
 try:
     choice = random.choice(some_exceptions)
-    print("raising {}".format(choice))
+    print(f"raising {choice}")
     if choice:
         raise choice("An error")
 except ValueError:
