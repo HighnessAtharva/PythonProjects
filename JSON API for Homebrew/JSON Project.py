@@ -11,7 +11,8 @@ packages_json = r.json()
 
 # Create an empty list to save all the requested data for processing later.
 results = []
-
+# t1 to time the entire process
+t1 = time.perf_counter()
 # To iterate over each package in order to grab the details.
 for package in packages_json:
     # Store the package name and description
@@ -49,6 +50,18 @@ for package in packages_json:
     results.append(data)
     # We add a slight delay to be courteous to the servers we are requesting the data from.
     # The delay is the amount of time it takes to fetch the installation details of one package.
+    '''
     time.sleep(r.elapsed.total_seconds())
+    '''
+    # Log each result into a print statement so we can see the progress in real-time.
+    print(f'Got {package_name} in {r.elapsed.total_seconds()} seconds.')
+    # --> break <-- Use break to test for individual packages. (To lower time boundary)
     # This gets installation details of all the packages
-    print(package_name, package_desc, installs_30, installs_90, installs_365)
+    # print(package_name, package_desc, installs_30, installs_90, installs_365)
+
+t2 = time.perf_counter()
+print(f'Job done in {t2-t1} seconds.')
+# store all the details into a our own JSON file.
+with open('packages_info.json', 'w') as f:
+    # Use json.dump to save the dictionary object to a JSON file. Use json.dumps to save it to a string varaible.
+    json.dump(results, f, indent=2)
