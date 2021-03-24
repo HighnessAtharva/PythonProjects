@@ -11,5 +11,5 @@ soup = bs(r.content, 'html.parser')
 # locate the image tag with the alt as Avatar and once that is done, return the value of the 'src' tag into profile_image
 profile_image = soup.find('img', {'alt': 'Avatar'})['src']
 
-#prints the Link to the Profile Picture
+# prints the Link to the Profile Picture
 print(profile_image)
