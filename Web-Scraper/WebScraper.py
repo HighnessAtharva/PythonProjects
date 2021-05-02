@@ -8,7 +8,7 @@ https://www.sanfoundry.com/1000-python-questions-answers/
 
 https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/
 '''
-req = Request('https://www.javatpoint.com/os-tutorial',
+req = Request('https://www.w3resource.com/javascript-exercises/',
               headers={'User-Agent': 'Mozilla/5.0'})
 webpage = urllib.request.urlopen(req).read()
 html_page = urlopen(req)
@@ -17,7 +17,8 @@ soup = BeautifulSoup(html_page, "lxml")
 
 links = []
 for link in soup.findAll('a'):
-    x = re.search("https://www.javatpoint.com/os-", str(link))
+    x = re.search(
+        "https://www.w3resource.com/", str(link))
     if x:
         links.append(link.get('href'))
 
