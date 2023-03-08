@@ -35,10 +35,10 @@ class Editor:
         try:
             auth.authorizor.check_permission(permission, self.username)
         except auth.NotLoggedInError as e:
-            print("{} is not logged in".format(e.username))
+            print(f"{e.username} is not logged in")
             return False
         except auth.NotPermittedError as e:
-            print("{} cannot {}".format(e.username, permission))
+            print(f"{e.username} cannot {permission}")
             return False
         else:
             return True
@@ -71,7 +71,7 @@ Please enter a command:
                 try:
                     func = self.menu_map[answer]
                 except KeyError:
-                    print("{} is not a valid option".format(answer))
+                    print(f"{answer} is not a valid option")
                 else:
                     func()
         finally:

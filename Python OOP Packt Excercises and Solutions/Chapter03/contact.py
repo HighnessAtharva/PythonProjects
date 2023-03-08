@@ -2,11 +2,7 @@ class ContactList(list):
     def search(self, name):
         """Return all contacts that contain the search value
         in their name."""
-        matching_contacts = []
-        for contact in self:
-            if name in contact.name:
-                matching_contacts.append(contact)
-        return matching_contacts
+        return [contact for contact in self if name in contact.name]
 
 
 class Contact:
@@ -21,8 +17,7 @@ class Contact:
 class Supplier(Contact):
     def order(self, order):
         print(
-            "If this were a real system we would send "
-            "'{}' order to '{}'".format(order, self.name)
+            f"If this were a real system we would send '{order}' order to '{self.name}'"
         )
 
 
@@ -35,7 +30,7 @@ class Friend(Contact):
 
 class MailSender:
     def send_mail(self, message):
-        print("Sending mail to " + self.email)
+        print(f"Sending mail to {self.email}")
         # Add e-mail logic here
 
 

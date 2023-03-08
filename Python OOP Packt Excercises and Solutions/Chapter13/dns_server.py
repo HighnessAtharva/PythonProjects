@@ -37,13 +37,9 @@ class DNSProtocol(asyncio.DatagramProtocol):
         self.transport = transport
 
     def datagram_received(self, data, addr):
-        print("Received request from {}".format(addr[0]))
+        print(f"Received request from {addr[0]}")
         domain, ip = lookup_dns(data)
-        print(
-            "Sending IP {} for {} to {}".format(
-                domain.decode(), ip, addr[0]
-            )
-        )
+        print(f"Sending IP {domain.decode()} for {ip} to {addr[0]}")
         self.transport.sendto(create_response(data, ip), addr)
 
 

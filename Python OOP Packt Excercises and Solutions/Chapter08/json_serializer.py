@@ -14,10 +14,7 @@ class ContactEncoder(json.JSONEncoder):
 
 
 def decode_contact(dic):
-    if dic.get("is_contact"):
-        return Contact(dic["first"], dic["last"])
-    else:
-        return dic
+    return Contact(dic["first"], dic["last"]) if dic.get("is_contact") else dic
 
 
 class Contact:
@@ -27,5 +24,5 @@ class Contact:
 
     @property
     def full_name(self):
-        return "{} {}".format(self.first, self.last)
+        return f"{self.first} {self.last}"
 

@@ -21,7 +21,7 @@ def funny_division2(divider):
 
 for val in (0, "hello", 50.0, 13):
 
-    print("Testing {}:".format(val), end=" ")
+    print(f"Testing {val}:", end=" ")
     print(funny_division2(val))
 
 

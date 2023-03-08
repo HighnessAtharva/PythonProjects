@@ -19,13 +19,11 @@ class TemplateEngine:
             self.context = json.load(contextfile)
 
     def process(self):
-        match = DIRECTIVE_RE.search(self.template, pos=self.pos)
-        while match:
+        while match := DIRECTIVE_RE.search(self.template, pos=self.pos):
             self.outfile.write(self.template[self.pos : match.start()])
             directive, argument = match.groups()
-            method_name = "process_{}".format(directive)
+            method_name = f"process_{directive}"
             getattr(self, method_name)(match, argument)
-            match = DIRECTIVE_RE.search(self.template, pos=self.pos)
         self.outfile.write(self.template[self.pos :])
 
     def process_include(self, match, argument):

@@ -5,8 +5,8 @@
 # 'self'.
 
 class A(object):
-    def method(*argv):
-        return argv
+    def method(self):
+        return self
 
 
 a = A()

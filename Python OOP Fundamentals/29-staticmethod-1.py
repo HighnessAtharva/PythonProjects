@@ -24,11 +24,10 @@ class MyClass(object):
 
     @staticmethod
     def filterint(value):
-        if not isinstance(value, int):
-            print("Entered value is not an INT, value set to 0")
-            return 0
-        else:
+        if isinstance(value, int):
             return value
+        print("Entered value is not an INT, value set to 0")
+        return 0
 
 
 a = MyClass(5)

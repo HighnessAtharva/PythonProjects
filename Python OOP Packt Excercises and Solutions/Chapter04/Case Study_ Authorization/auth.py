@@ -84,9 +84,7 @@ class Authenticator:
         return True
 
     def is_logged_in(self, username):
-        if username in self.users:
-            return self.users[username].is_logged_in
-        return False
+        return self.users[username].is_logged_in if username in self.users else False
 
 
 class Authorizor:

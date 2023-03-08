@@ -13,18 +13,15 @@ class Employee:
 
     @property
     def email(self):
-        return '{}.{}@email.com'.format(self.first, self.last)
+        return f'{self.first}.{self.last}@email.com'
 
     @property
     def fullname(self):
-        return '{} {}'.format(self.first, self.last)
+        return f'{self.first} {self.last}'
 
     def apply_raise(self):
         self.pay = int(self.pay * self.raise_amt)
 
     def monthly_schedule(self, month):
         response = requests.get(f'http://company.com/{self.last}/{month}')
-        if response.ok:
-            return response.text
-        else:
-            return 'Bad Response!'
+        return response.text if response.ok else 'Bad Response!'

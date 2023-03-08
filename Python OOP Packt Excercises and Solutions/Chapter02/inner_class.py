@@ -16,5 +16,5 @@ def format_string(string, formatter=None):
 
 
 hello_string = "hello world, how are you today?"
-print(" input: " + hello_string)
-print("output: " + format_string(hello_string))
+print(f" input: {hello_string}")
+print(f"output: {format_string(hello_string)}")

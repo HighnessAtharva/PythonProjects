@@ -20,10 +20,7 @@ import time
 # if yes, return the index
 # if no, then return -1
 def naive_search(l, target):
-    for i in range(len(l)):
-        if l[i] == target:
-            return i
-    return -1
+    return next((i for i in range(len(l)) if l[i] == target), -1)
 
 # binary search uses divide and conquer!
 # we will leverage the fact that our list is SORTED
@@ -31,9 +28,9 @@ def naive_search(l, target):
 
 def binary_search(l, target, low=None, high=None):
     # example l = [1, 3, 5, 10, 12]  # should return
-    if low == None:
+    if low is None:
         low = 0
-    if high == None:
+    if high is None:
         high = len(l) - 1
 
     if high < low:

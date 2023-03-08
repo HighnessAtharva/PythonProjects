@@ -6,7 +6,7 @@ async def random_sleep(counter):
     delay = random.random() * 5
     print("{} sleeps for {:.2f} seconds".format(counter, delay))
     await asyncio.sleep(delay)
-    print("{} awakens".format(counter))
+    print(f"{counter} awakens")
 
 
 async def five_sleepers():

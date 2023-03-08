@@ -9,10 +9,11 @@ class EmailFacade:
         self.password = password
 
     def send_email(self, to_email, subject, message):
-        if not "@" in self.username:
-            from_email = "{0}@{1}".format(self.username, self.host)
-        else:
-            from_email = self.username
+        from_email = (
+            self.username
+            if "@" in self.username
+            else "{0}@{1}".format(self.username, self.host)
+        )
         message = (
             "From: {0}\r\n" "To: {1}\r\n" "Subject: {2}\r\n\r\n{3}"
         ).format(from_email, to_email, subject, message)

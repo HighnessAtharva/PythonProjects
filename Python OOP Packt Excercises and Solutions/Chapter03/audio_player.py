@@ -13,21 +13,21 @@ class MP3File(AudioFile):
     ext = "mp3"
 
     def play(self):
-        print("playing {} as mp3".format(self.filename))
+        print(f"playing {self.filename} as mp3")
 
 
 class WavFile(AudioFile):
     ext = "wav"
 
     def play(self):
-        print("playing {} as wav".format(self.filename))
+        print(f"playing {self.filename} as wav")
 
 
 class OggFile(AudioFile):
     ext = "ogg"
 
     def play(self):
-        print("playing {} as ogg".format(self.filename))
+        print(f"playing {self.filename} as ogg")
 
 
 class FlacFile:
@@ -38,7 +38,7 @@ class FlacFile:
         self.filename = filename
 
     def play(self):
-        print("playing {} as flac".format(self.filename))
+        print(f"playing {self.filename} as flac")
 
 
 class MediaLoader(metaclass=abc.ABCMeta):

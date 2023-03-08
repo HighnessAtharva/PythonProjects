@@ -3,10 +3,11 @@ stocks = {
     "MSFT": (110.41, 110.45, 109.84),
 }
 
-random_keys = {}
-random_keys["astring"] = "somestring"
-random_keys[5] = "aninteger"
-random_keys[25.2] = "floats work too"
+random_keys = {
+    "astring": "somestring",
+    5: "aninteger",
+    25.2: "floats work too",
+}
 random_keys[("abc", 123)] = "so do tuples"
 
 
@@ -24,4 +25,4 @@ except:
     print("unable to store list\n")
 
 for key, value in random_keys.items():
-    print("{} has value {}".format(key, value))
+    print(f"{key} has value {value}")

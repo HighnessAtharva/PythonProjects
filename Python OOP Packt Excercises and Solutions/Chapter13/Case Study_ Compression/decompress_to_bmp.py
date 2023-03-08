@@ -10,7 +10,7 @@ def decompress(width, height, bytes):
     for byte in bytes:
         color = (byte & 128) >> 7
         count = byte & ~128
-        for i in range(count):
+        for _ in range(count):
             image.putpixel((row, col), color)
             row += 1
         if not row % width:

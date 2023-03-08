@@ -18,7 +18,7 @@ def prime_factor(value):
 if __name__ == "__main__":
     pool = Pool()
 
-    to_factor = [random.randint(100000, 50000000) for i in range(20)]
+    to_factor = [random.randint(100000, 50000000) for _ in range(20)]
     results = pool.map(prime_factor, to_factor)
     for value, factors in zip(to_factor, results):
-        print("The factors of {} are {}".format(value, factors))
+        print(f"The factors of {value} are {factors}")

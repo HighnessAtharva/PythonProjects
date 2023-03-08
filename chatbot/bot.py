@@ -25,10 +25,8 @@ def count():
     print('Now I will prove to you that I can count to any number you want.')
     num = int(input())
 
-    counter = 0
-    while counter <= num:
+    for counter in range(num + 1):
         print("{0} !".format(counter))
-        counter += 1
 
 
 def test():

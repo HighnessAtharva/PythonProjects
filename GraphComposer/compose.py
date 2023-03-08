@@ -20,9 +20,7 @@ def get_words_from_text(text_path):
 
     words = text.split()
 
-    words = words[:1000]
-
-    return words
+    return words[:1000]
 
 
 def make_graph(words):

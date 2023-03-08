@@ -46,7 +46,7 @@ def compress_in_executor(executor, bits, width):
 
 
 def compress_image(in_filename, out_filename, executor=None):
-    executor = executor if executor else ThreadPoolExecutor(4)
+    executor = executor or ThreadPoolExecutor(4)
     with Image.open(in_filename) as image:
         bits = bitarray(image.convert("1").getdata())
         width, height = image.size

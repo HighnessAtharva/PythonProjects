@@ -4,7 +4,7 @@ class Silly:
         return self._silly
 
     def _set_silly(self, value):
-        print("You are making silly {}".format(value))
+        print(f"You are making silly {value}")
         self._silly = value
 
     def _del_silly(self):
@@ -23,7 +23,7 @@ class SillyDecorated:
 
     @silly.setter
     def silly(self, value):
-        print("You are making silly {}".format(value))
+        print(f"You are making silly {value}")
         self._silly = value
 
     @silly.deleter

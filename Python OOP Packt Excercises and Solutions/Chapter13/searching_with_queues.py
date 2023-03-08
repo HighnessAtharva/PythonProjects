@@ -3,10 +3,8 @@ def search(paths, query_q, results_q):
     for path in paths:
         lines.extend(l.strip() for l in path.open())
 
-    query = query_q.get()
-    while query:
+    while query := query_q.get():
         results_q.put([l for l in lines if query in l])
-        query = query_q.get()
 
 
 if __name__ == "__main__":
@@ -16,7 +14,7 @@ if __name__ == "__main__":
     cpus = cpu_count()
     pathnames = [f for f in path(".").listdir() if f.isfile()]
     paths = [pathnames[i::cpus] for i in range(cpus)]
-    query_queues = [Queue() for p in range(cpus)]
+    query_queues = [Queue() for _ in range(cpus)]
     results_queue = Queue()
 
     search_procs = [
@@ -30,7 +28,7 @@ if __name__ == "__main__":
         q.put("def")
         q.put(None)  # Signal process termination
 
-    for i in range(cpus):
+    for _ in range(cpus):
         for match in results_queue.get():
             print(match)
     for proc in search_procs:

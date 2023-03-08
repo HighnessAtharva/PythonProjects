@@ -6,7 +6,7 @@ import json
 async def remote_sort():
     reader, writer = await asyncio.open_connection("127.0.0.1", 2015)
     print("Generating random list...")
-    numbers = [random.randrange(10000) for r in range(10000)]
+    numbers = [random.randrange(10000) for _ in range(10000)]
     data = json.dumps(numbers).encode()
     print("List Generated, Sending data")
     writer.write(len(data).to_bytes(8, "big"))
