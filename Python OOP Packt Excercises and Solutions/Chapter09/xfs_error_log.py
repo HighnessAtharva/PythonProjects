@@ -5,8 +5,7 @@ def match_regex(filename, regex):
     with open(filename) as file:
         lines = file.readlines()
     for line in reversed(lines):
-        match = re.match(regex, line)
-        if match:
+        if match := re.match(regex, line):
             regex = yield match.groups()[0]
 
 
@@ -16,11 +15,8 @@ def get_serials(filename):
     device = next(matcher)
     while True:
         try:
-            bus = matcher.send(
-                "(sd \S+) {}.*".format(re.escape(device))
-            )
-            serial = matcher.send("{} \(SERIAL=([^)]*)\)".format(bus))
-            yield serial
+            bus = matcher.send(f"(sd \S+) {re.escape(device)}.*")
+            yield matcher.send(f"{bus} \(SERIAL=([^)]*)\)")
             device = matcher.send(ERROR_RE)
         except StopIteration:
             return

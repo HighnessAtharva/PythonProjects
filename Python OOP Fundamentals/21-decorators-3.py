@@ -25,7 +25,7 @@ def my_decorator(inner):
 
 @my_decorator
 def decorated(number):
-    print("This happened : " + str(number))
+    print(f"This happened : {str(number)}")
 
 
 if __name__ == "__main__":

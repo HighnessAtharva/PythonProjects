@@ -22,7 +22,7 @@ def decorator(inner):
 
 @decorator
 def decorated(string_args):
-    print("This happened : " + string_args)
+    print(f"This happened : {string_args}")
 
 
 if __name__ == "__main__":

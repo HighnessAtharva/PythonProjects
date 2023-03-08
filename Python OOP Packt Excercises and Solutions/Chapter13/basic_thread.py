@@ -16,4 +16,4 @@ while thread.is_alive():
     count += 1
 
 print("calculated squares up to {0} * {0} = {1}".format(count, result))
-print("while you typed '{}'".format(thread.line_of_text))
+print(f"while you typed '{thread.line_of_text}'")

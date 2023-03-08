@@ -17,9 +17,7 @@ soup = BeautifulSoup(html_page, "lxml")
 
 links = []
 for link in soup.findAll('a'):
-    x = re.search(
-        "https://www.w3resource.com/", str(link))
-    if x:
+    if x := re.search("https://www.w3resource.com/", str(link)):
         links.append(link.get('href'))
 
 for link in links:

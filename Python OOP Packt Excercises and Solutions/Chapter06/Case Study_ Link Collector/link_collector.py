@@ -9,7 +9,7 @@ LINK_REGEX = re.compile("<a [^>]*href=['\"]([^'\"]+)['\"][^>]*>")
 
 class LinkCollector:
     def __init__(self, url):
-        self.url = "http://%s" % urlparse(url).netloc
+        self.url = f"http://{urlparse(url).netloc}"
         self.collected_links = {}
         self.visited_links = set()
 
@@ -51,4 +51,4 @@ if __name__ == "__main__":
     collector = LinkCollector(sys.argv[1])
     collector.collect_links()
     for link, item in collector.collected_links.items():
-        print("%s: %s" % (link, item))
+        print(f"{link}: {item}")

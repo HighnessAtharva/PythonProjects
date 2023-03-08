@@ -6,10 +6,7 @@ class Node:
         self.text = ""
 
     def __str__(self):
-        if self.text:
-            return self.tag_name + ": " + self.text
-        else:
-            return self.tag_name
+        return f"{self.tag_name}: {self.text}" if self.text else self.tag_name
 
 
 class FirstTag:
@@ -77,8 +74,7 @@ class Parser:
         self.state = FirstTag()
 
     def process(self, remaining_string):
-        remaining = self.state.process(remaining_string, self)
-        if remaining:
+        if remaining := self.state.process(remaining_string, self):
             self.process(remaining)
 
     def start(self):

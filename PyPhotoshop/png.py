@@ -271,24 +271,22 @@ def check_color(c, greyscale, which):
         except TypeError:
             c = (c,)
         if len(c) != 1:
-            raise ValueError("%s for greyscale must be 1-tuple" %
-                             which)
+            raise ValueError(f"{which} for greyscale must be 1-tuple")
         if not isinteger(c[0]):
-            raise ValueError(
-                "%s colour for greyscale must be integer" % which)
-    else:
-        if not (len(c) == 3 and
-                isinteger(c[0]) and
-                isinteger(c[1]) and
-                isinteger(c[2])):
-            raise ValueError(
-                "%s colour must be a triple of integers" % which)
+            raise ValueError(f"{which} colour for greyscale must be integer")
+    elif (
+        len(c) != 3
+        or not isinteger(c[0])
+        or not isinteger(c[1])
+        or not isinteger(c[2])
+    ):
+        raise ValueError(f"{which} colour must be a triple of integers")
     return c
 
 
 class Error(Exception):
     def __str__(self):
-        return self.__class__.__name__ + ': ' + ' '.join(self.args)
+        return f'{self.__class__.__name__}: ' + ' '.join(self.args)
 
 
 class FormatError(Error):
@@ -469,7 +467,7 @@ class Writer:
                     "bytes per sample must be .125, .25, .5, 1, or 2")
             bitdepth = int(8*bytes_per_sample)
         del bytes_per_sample
-        if not isinteger(bitdepth) or bitdepth < 1 or 16 < bitdepth:
+        if not isinteger(bitdepth) or bitdepth < 1 or bitdepth > 16:
             raise ValueError("bitdepth (%r) must be a positive integer <= 16" %
                              bitdepth)
 
@@ -485,28 +483,26 @@ class Writer:
                 raise ValueError("alpha and palette not compatible")
             if greyscale:
                 raise ValueError("greyscale and palette not compatible")
+        elif alpha or not greyscale:
+            if bitdepth not in (8, 16):
+                targetbitdepth = (8, 16)[bitdepth > 8]
+                self.rescale = (bitdepth, targetbitdepth)
+                bitdepth = targetbitdepth
+                del targetbitdepth
         else:
-            # No palette, check for sBIT chunk generation.
-            if alpha or not greyscale:
-                if bitdepth not in (8, 16):
-                    targetbitdepth = (8, 16)[bitdepth > 8]
-                    self.rescale = (bitdepth, targetbitdepth)
-                    bitdepth = targetbitdepth
-                    del targetbitdepth
-            else:
-                assert greyscale
-                assert not alpha
-                if bitdepth not in (1, 2, 4, 8, 16):
-                    if bitdepth > 8:
-                        targetbitdepth = 16
-                    elif bitdepth == 3:
-                        targetbitdepth = 4
-                    else:
-                        assert bitdepth in (5, 6, 7)
-                        targetbitdepth = 8
-                    self.rescale = (bitdepth, targetbitdepth)
-                    bitdepth = targetbitdepth
-                    del targetbitdepth
+            assert greyscale
+            assert not alpha
+            if bitdepth not in (1, 2, 4, 8, 16):
+                if bitdepth > 8:
+                    targetbitdepth = 16
+                elif bitdepth == 3:
+                    targetbitdepth = 4
+                else:
+                    assert bitdepth in (5, 6, 7)
+                    targetbitdepth = 8
+                self.rescale = (bitdepth, targetbitdepth)
+                bitdepth = targetbitdepth
+                del targetbitdepth
 
         if bitdepth < 8 and (alpha or not greyscale and not palette):
             raise ValueError(
@@ -556,14 +552,11 @@ class Writer:
         t = array('B')
 
         for x in self.palette:
-            p.extend(x[0:3])
+            p.extend(x[:3])
             if len(x) > 3:
                 t.append(x[3])
         p = tostring(p)
-        t = tostring(t)
-        if t:
-            return p, t
-        return p, None
+        return (p, t) if (t := tostring(t)) else (p, None)
 
     def write(self, outfile, rows):
         """Write a PNG image to the output file.  `rows` should be
@@ -703,7 +696,7 @@ class Writer:
         if self.rescale:
             oldextend = extend
             factor = \
-                float(2**self.rescale[1]-1) / float(2**self.rescale[0]-1)
+                    float(2**self.rescale[1]-1) / float(2**self.rescale[0]-1)
 
             def extend(sl):
                 oldextend([int(round(factor*x)) for x in sl])
@@ -753,10 +746,7 @@ class Writer:
                 # we use ``del`` to empty this one, rather than create a
                 # fresh one (which would be my natural FP instinct).
                 del data[:]
-        if len(data):
-            compressed = compressor.compress(tostring(data))
-        else:
-            compressed = b''
+        compressed = compressor.compress(tostring(data)) if len(data) else b''
         flushed = compressor.flush()
         if len(compressed) or len(flushed):
             write_chunk(outfile, b'IDAT', compressed + flushed)
@@ -866,7 +856,7 @@ class Writer:
         # Values per row
         vpr = self.width * self.planes
         stop = 0
-        for y in range(self.height):
+        for _ in range(self.height):
             start = stop
             stop = start + vpr
             yield pixels[start:stop]
@@ -898,13 +888,13 @@ class Writer:
                 else:
                     row = array(fmt)
                     # There's no easier way to set the length of an array
-                    row.extend(pixels[0:row_len])
+                    row.extend(pixels[:row_len])
                     offset = y * vpr + xstart * self.planes
                     end_offset = (y+1) * vpr
                     skip = self.planes * xstep
                     for i in range(self.planes):
                         row[i::self.planes] = \
-                            pixels[offset+i:end_offset:skip]
+                                pixels[offset+i:end_offset:skip]
                     yield row
 
 
@@ -1109,14 +1099,12 @@ def from_array(a, mode=None, info={}):
         bitdepth = int(bitdepth)
 
     # Colour format.
-    if 'greyscale' in info:
-        if bool(info['greyscale']) != ('L' in mode):
-            raise Error("info['greyscale'] should match mode.")
+    if 'greyscale' in info and bool(info['greyscale']) != ('L' in mode):
+        raise Error("info['greyscale'] should match mode.")
     info['greyscale'] = 'L' in mode
 
-    if 'alpha' in info:
-        if bool(info['alpha']) != alpha:
-            raise Error("info['alpha'] should match mode.")
+    if 'alpha' in info and bool(info['alpha']) != alpha:
+        raise Error("info['alpha'] should match mode.")
     info['alpha'] = alpha
 
     # Get bitdepth from *mode* if possible.
@@ -1133,11 +1121,10 @@ def from_array(a, mode=None, info={}):
 
         # Check width, height, size all match where used.
         for dimension, axis in [('width', 0), ('height', 1)]:
-            if dimension in info:
-                if info[dimension] != info['size'][axis]:
-                    raise Error(
-                        "info[%r] should match info['size'][%r]." %
-                        (dimension, axis))
+            if dimension in info and info[dimension] != info['size'][axis]:
+                raise Error(
+                    "info[%r] should match info['size'][%r]." %
+                    (dimension, axis))
         info['width'], info['height'] = info['size']
 
     if 'height' not in info:
@@ -1147,9 +1134,8 @@ def from_array(a, mode=None, info={}):
             raise Error("len(a) does not work, supply info['height'] instead.")
 
     planes = len(mode)
-    if 'planes' in info:
-        if info['planes'] != planes:
-            raise Error("info['planes'] should match mode.")
+    if 'planes' in info and info['planes'] != planes:
+        raise Error("info['planes'] should match mode.")
 
     # In order to work out whether we the array is 2D or 3D we need its
     # first row, which requires that we take a copy of its iterator.
@@ -1165,10 +1151,7 @@ def from_array(a, mode=None, info={}):
         threed = False
         testelement = row
     if 'width' not in info:
-        if threed:
-            width = len(row)
-        else:
-            width = len(row) // planes
+        width = len(row) if threed else len(row) // planes
         info['width'] = width
 
     if threed:
@@ -1190,10 +1173,7 @@ def from_array(a, mode=None, info={}):
         else:
             # If we got here without exception, we now assume that
             # the array is a numpy array.
-            if dtype.kind == 'b':
-                bitdepth = 1
-            else:
-                bitdepth = 8 * dtype.itemsize
+            bitdepth = 1 if dtype.kind == 'b' else 8 * dtype.itemsize
         info['bitdepth'] = bitdepth
 
     for thing in ["width", "height", "bitdepth", "greyscale", "alpha"]:
@@ -1291,8 +1271,7 @@ class Reader:
         bytes
           ``array`` or ``string`` with PNG data.
         """
-        if ((_guess is not None and len(kw) != 0) or
-                (_guess is None and len(kw) != 1)):
+        if _guess is not None and kw or (_guess is None and len(kw) != 1):
             raise TypeError("Reader() takes exactly 1 argument")
 
         # Will be the first 8 bytes, later on.  See validate_signature.
@@ -1350,7 +1329,7 @@ class Reader:
                                  % (type, length))
             checksum = self.file.read(4)
             if len(checksum) != 4:
-                raise ChunkError('Chunk %s too short for checksum.' % type)
+                raise ChunkError(f'Chunk {type} too short for checksum.')
             if seek and type != seek:
                 continue
             verify = zlib.crc32(type)
@@ -1451,10 +1430,7 @@ class Reader:
             ai = -fu
             for i in range(len(result)):
                 x = scanline[i]
-                if ai < 0:
-                    a = 0
-                else:
-                    a = result[ai]
+                a = 0 if ai < 0 else result[ai]
                 b = previous[i]
                 result[i] = (x + ((a + b) >> 1)) & 0xff
                 ai += 1
@@ -1689,9 +1665,8 @@ class Reader:
         """
 
         type, data = self.chunk(lenient=lenient)
-        method = '_process_' + as_str(type)
-        m = getattr(self, method, None)
-        if m:
+        method = f'_process_{as_str(type)}'
+        if m := getattr(self, method, None):
             m(data)
 
     def _process_IHDR(self, data):
@@ -1773,11 +1748,10 @@ class Reader:
         if self.colormap:
             if not self.plte:
                 warnings.warn("PLTE chunk is required before tRNS chunk.")
-            else:
-                if len(data) > len(self.plte)/3:
-                    # Was warning, but promoted to Error as it
-                    # would otherwise cause pain later on.
-                    raise FormatError("tRNS chunk is too long.")
+            elif len(data) > len(self.plte)/3:
+                # Was warning, but promoted to Error as it
+                # would otherwise cause pain later on.
+                raise FormatError("tRNS chunk is too long.")
         else:
             if self.alpha:
                 raise FormatError(
@@ -1785,7 +1759,7 @@ class Reader:
                     self.color_type)
             try:
                 self.transparent = \
-                    struct.unpack("!%dH" % self.color_planes, data)
+                        struct.unpack("!%dH" % self.color_planes, data)
             except struct.error:
                 raise FormatError("tRNS chunk has incorrect length.")
 
@@ -1868,7 +1842,7 @@ class Reader:
                          *[iter(self.deinterlace(raw))]*self.width*self.planes)
         else:
             pixels = self.iterboxed(self.iterstraight(raw))
-        meta = dict()
+        meta = {}
         for attr in 'greyscale alpha planes bitdepth interlace'.split():
             meta[attr] = getattr(self, attr)
         meta['size'] = (self.width, self.height)
@@ -2126,7 +2100,7 @@ class Reader:
             return width, height, pixels, meta
         typecode = 'BH'[meta['bitdepth'] > 8]
         maxval = 2**meta['bitdepth'] - 1
-        maxbuffer = struct.pack('=' + typecode, maxval) * 4 * width
+        maxbuffer = struct.pack(f'={typecode}', maxval) * 4 * width
 
         def newarray():
             return array(typecode, maxbuffer)
@@ -2201,21 +2175,19 @@ try:
     pngfilters
 except NameError:
     class pngfilters(object):
-        def undo_filter_sub(filter_unit, scanline, previous, result):
+        def undo_filter_sub(self, scanline, previous, result):
             """Undo sub filter."""
 
-            ai = 0
             # Loops starts at index fu.  Observe that the initial part
             # of the result is already filled in correctly with
             # scanline.
-            for i in range(filter_unit, len(result)):
+            for ai, i in enumerate(range(self, len(result))):
                 x = scanline[i]
                 a = result[ai]
                 result[i] = (x + a) & 0xff
-                ai += 1
         undo_filter_sub = staticmethod(undo_filter_sub)
 
-        def undo_filter_up(filter_unit, scanline, previous, result):
+        def undo_filter_up(self, scanline, previous, result):
             """Undo up filter."""
 
             for i in range(len(result)):
@@ -2224,26 +2196,23 @@ except NameError:
                 result[i] = (x + b) & 0xff
         undo_filter_up = staticmethod(undo_filter_up)
 
-        def undo_filter_average(filter_unit, scanline, previous, result):
+        def undo_filter_average(self, scanline, previous, result):
             """Undo up filter."""
 
-            ai = -filter_unit
+            ai = -self
             for i in range(len(result)):
                 x = scanline[i]
-                if ai < 0:
-                    a = 0
-                else:
-                    a = result[ai]
+                a = 0 if ai < 0 else result[ai]
                 b = previous[i]
                 result[i] = (x + ((a + b) >> 1)) & 0xff
                 ai += 1
         undo_filter_average = staticmethod(undo_filter_average)
 
-        def undo_filter_paeth(filter_unit, scanline, previous, result):
+        def undo_filter_paeth(self, scanline, previous, result):
             """Undo Paeth filter."""
 
             # Also used for ci.
-            ai = -filter_unit
+            ai = -self
             for i in range(len(result)):
                 x = scanline[i]
                 if ai < 0:
@@ -2266,27 +2235,27 @@ except NameError:
                 ai += 1
         undo_filter_paeth = staticmethod(undo_filter_paeth)
 
-        def convert_la_to_rgba(row, result):
+        def convert_la_to_rgba(self, result):
             for i in range(3):
-                result[i::4] = row[0::2]
-            result[3::4] = row[1::2]
+                result[i::4] = self[::2]
+            result[3::4] = self[1::2]
         convert_la_to_rgba = staticmethod(convert_la_to_rgba)
 
-        def convert_l_to_rgba(row, result):
+        def convert_l_to_rgba(self, result):
             """Convert a grayscale image to RGBA. This method assumes
             the alpha channel in result is already correctly
             initialized.
             """
             for i in range(3):
-                result[i::4] = row
+                result[i::4] = self
         convert_l_to_rgba = staticmethod(convert_l_to_rgba)
 
-        def convert_rgb_to_rgba(row, result):
+        def convert_rgb_to_rgba(self, result):
             """Convert an RGB image to RGBA. This method assumes the
             alpha channel in result is already correctly initialized.
             """
             for i in range(3):
-                result[i::4] = row[i::3]
+                result[i::4] = self[i::3]
         convert_rgb_to_rgba = staticmethod(convert_rgb_to_rgba)
 
 
@@ -2300,7 +2269,7 @@ def read_pam_header(infile):
     """
 
     # Unlike PBM, PGM, and PPM, we can read the header a line at a time.
-    header = dict()
+    header = {}
     while True:
         l = infile.readline().strip()
         if l == b'ENDHDR':
@@ -2350,7 +2319,7 @@ def read_pnm_header(infile, supported=(b'P5', b'P6')):
     # is acceptable.
     type = infile.read(3).rstrip()
     if type not in supported:
-        raise NotImplementedError('file format %s not supported' % type)
+        raise NotImplementedError(f'file format {type} not supported')
     if type == b'P7':
         # PAM header parsing is completely different.
         return read_pam_header(infile)
@@ -2382,7 +2351,7 @@ def read_pnm_header(infile, supported=(b'P5', b'P6')):
             while c not in b'\n\r':
                 c = getc()
         if not c.isdigit():
-            raise Error('unexpected character %s found in header' % c)
+            raise Error(f'unexpected character {c} found in header')
         # According to the specification it is legal to have comments
         # that appear in the middle of a token.
         # This is bonkers; I've never seen it; and it's a bit awkward to
@@ -2402,7 +2371,7 @@ def read_pnm_header(infile, supported=(b'P5', b'P6')):
         while c not in '\n\r':
             c = getc()
     if not c.isspace():
-        raise Error('expected header to end with whitespace, not %s' % c)
+        raise Error(f'expected header to end with whitespace, not {c}')
 
     if type in pbm:
         # synthesize a MAXVAL
@@ -2424,23 +2393,12 @@ def write_pnm(file, width, height, pixels, meta):
     # from a PNG file.
     assert planes in (1, 2, 3, 4)
     if planes in (1, 3):
-        if 1 == planes:
-            # PGM
-            # Could generate PBM if maxval is 1, but we don't (for one
-            # thing, we'd have to convert the data, not just blat it
-            # out).
-            fmt = 'P5'
-        else:
-            # PPM
-            fmt = 'P6'
+        fmt = 'P5' if planes == 1 else 'P6'
         header = '%s %d %d %d\n' % (fmt, width, height, maxval)
     if planes in (2, 4):
         # PAM
         # See http://netpbm.sourceforge.net/doc/pam.html
-        if 2 == planes:
-            tupltype = 'GRAYSCALE_ALPHA'
-        else:
-            tupltype = 'RGB_ALPHA'
+        tupltype = 'GRAYSCALE_ALPHA' if planes == 2 else 'RGB_ALPHA'
         header = ('P7\nWIDTH %d\nHEIGHT %d\nDEPTH %d\nMAXVAL %d\n'
                   'TUPLTYPE %s\nENDHDR\n' %
                   (width, height, planes, maxval, tupltype))
@@ -2449,10 +2407,7 @@ def write_pnm(file, width, height, pixels, meta):
     vpr = planes * width
     # struct format
     fmt = '>%d' % vpr
-    if maxval > 0xff:
-        fmt = fmt + 'H'
-    else:
-        fmt = fmt + 'B'
+    fmt = f'{fmt}H' if maxval > 0xff else f'{fmt}B'
     for row in pixels:
         file.write(struct.pack(fmt, *row))
     file.flush()
@@ -2467,14 +2422,15 @@ def color_triple(color):
         return (int(color[1], 16),
                 int(color[2], 16),
                 int(color[3], 16))
-    if color.startswith('#') and len(color) == 7:
-        return (int(color[1:3], 16),
-                int(color[3:5], 16),
-                int(color[5:7], 16))
-    elif color.startswith('#') and len(color) == 13:
-        return (int(color[1:5], 16),
-                int(color[5:9], 16),
-                int(color[9:13], 16))
+    if color.startswith('#'):
+        if len(color) == 7:
+            return (int(color[1:3], 16),
+                    int(color[3:5], 16),
+                    int(color[5:7], 16))
+        elif len(color) == 13:
+            return (int(color[1:5], 16),
+                    int(color[5:9], 16),
+                    int(color[9:13], 16))
 
 
 def _add_common_options(parser):
@@ -2507,7 +2463,7 @@ def _main(argv):
 
     # Parse command line arguments
     from optparse import OptionParser
-    version = '%prog ' + __version__
+    version = f'%prog {__version__}'
     parser = OptionParser(version=version)
     parser.set_usage("%prog [options] [imagefile]")
     parser.add_option('-r', '--read-png', default=False,
@@ -2563,8 +2519,8 @@ def _main(argv):
             mi = supported.index(maxval)
         except ValueError:
             raise NotImplementedError(
-                'your maxval (%s) not in supported list %s' %
-                (maxval, str(supported)))
+                f'your maxval ({maxval}) not in supported list {supported}'
+            )
         bitdepth = mi+1
         writer = Writer(width, height,
                         greyscale=greyscale,
@@ -2580,8 +2536,7 @@ def _main(argv):
             format, awidth, aheight, adepth, amaxval = \
                 read_pnm_header(pgmfile, 'P5')
             if amaxval != '255':
-                raise NotImplementedError(
-                    'maxval %s not supported for alpha channel' % amaxval)
+                raise NotImplementedError(f'maxval {amaxval} not supported for alpha channel')
             if (awidth, aheight) != (width, height):
                 raise ValueError("alpha channel image size mismatch"
                                  " (%s has %sx%s but %s has %sx%s)"

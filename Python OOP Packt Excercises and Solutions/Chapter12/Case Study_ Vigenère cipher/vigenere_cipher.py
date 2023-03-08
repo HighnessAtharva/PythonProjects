@@ -4,10 +4,8 @@ class VigenereCipher:
 
     def _code(self, text, combine_func):
         text = text.replace(" ", "").upper()
-        combined = []
         keyword = self.extend_keyword(len(text))
-        for p, k in zip(text, keyword):
-            combined.append(combine_func(p, k))
+        combined = [combine_func(p, k) for p, k in zip(text, keyword)]
         return "".join(combined)
 
     def encode(self, plaintext):

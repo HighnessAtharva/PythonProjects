@@ -17,10 +17,7 @@ def computer_guess(x):
     low, high= 1, x
     feedback=''
     while feedback!='c':
-        if low!=high:  #C being correctly guessed
-            guess=random.randint(low, high)
-        else:
-            guess=low #Could also be high b/c low=high as computer narrows it down. Upper bound and lower bound become same.
+        guess = random.randint(low, high) if low!=high else low
         feedback=input(f"Is {guess} too high (H), too low (L) or correct(C)?").lower() #converting input to lowercase
         if feedback == 'h':
             high = guess-1 

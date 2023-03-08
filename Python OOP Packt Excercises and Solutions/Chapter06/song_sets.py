@@ -8,10 +8,7 @@ song_library = [
     ("Mal's Song", "Vixy and Tony"),
 ]
 
-artists = set()
-for song, artist in song_library:
-    artists.add(artist)
-
+artists = {artist for song, artist in song_library}
 print(artists)
 
 first_artists = {
@@ -23,22 +20,20 @@ first_artists = {
 
 second_artists = {"Nickelback", "Guns N' Roses", "Savage Garden"}
 
-print("All: {}".format(first_artists.union(second_artists)))
-print("Both: {}".format(second_artists.intersection(first_artists)))
+print(f"All: {first_artists.union(second_artists)}")
+print(f"Both: {second_artists.intersection(first_artists)}")
 print(
-    "Either but not both: {}".format(
-        first_artists.symmetric_difference(second_artists)
-    )
+    f"Either but not both: {first_artists.symmetric_difference(second_artists)}"
 )
 
 bands = {"Guns N' Roses", "Opeth"}
 
 print("first_artists is to bands:")
-print("issuperset: {}".format(first_artists.issuperset(bands)))
-print("issubset: {}".format(first_artists.issubset(bands)))
-print("difference: {}".format(first_artists.difference(bands)))
+print(f"issuperset: {first_artists.issuperset(bands)}")
+print(f"issubset: {first_artists.issubset(bands)}")
+print(f"difference: {first_artists.difference(bands)}")
 print("*" * 20)
 print("bands is to first_artists:")
-print("issuperset: {}".format(bands.issuperset(first_artists)))
-print("issubset: {}".format(bands.issubset(first_artists)))
-print("difference: {}".format(bands.difference(first_artists)))
+print(f"issuperset: {bands.issuperset(first_artists)}")
+print(f"issubset: {bands.issubset(first_artists)}")
+print(f"difference: {bands.difference(first_artists)}")

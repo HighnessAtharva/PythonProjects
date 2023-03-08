@@ -6,10 +6,7 @@ class Node:
         self.text = ""
 
     def __str__(self):
-        if self.text:
-            return self.tag_name + ": " + self.text
-        else:
-            return self.tag_name
+        return f"{self.tag_name}: {self.text}" if self.text else self.tag_name
 
 
 class FirstTag:

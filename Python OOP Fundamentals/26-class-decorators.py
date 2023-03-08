@@ -15,9 +15,14 @@
 
 
 def honirific(cls):
+
+
+
     class HonirificCls(cls):
         def full_name(self):
-            return "Dr. " + super(HonirificCls, self).full_name()
+            return f"Dr. {super(HonirificCls, self).full_name()}"
+
+
     return HonirificCls
 
 

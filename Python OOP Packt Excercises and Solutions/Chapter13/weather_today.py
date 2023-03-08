@@ -49,9 +49,5 @@ for thread in threads:
 
 for thread in threads:
     print(f"it is {thread.temperature}°C in {thread.city}")
-print(
-    "Got {} temps in {} seconds".format(
-        len(threads), time.time() - start
-    )
-)
+print(f"Got {len(threads)} temps in {time.time() - start} seconds")
 

@@ -23,9 +23,7 @@ class Stats():
         Mean Deviation is average of distance of each value from that mean(average).
         """
         average = __class__.average(lst)
-        mean_deviation = 0
-        for v in lst:
-            mean_deviation += abs(average - v)
+        mean_deviation = sum(abs(average - v) for v in lst)
         return mean_deviation / __class__.length(lst)
 
     @staticmethod
@@ -42,9 +40,7 @@ class Stats():
         Variance is useful to see how the list of values varied against the average.
         """
         average = __class__.average(lst)
-        variance = 0
-        for v in lst:
-            variance += ((average - v) ** 2)
+        variance = sum(((average - v) ** 2) for v in lst)
         return variance / __class__.length(lst)
 
     @staticmethod
@@ -65,9 +61,7 @@ class Stats():
         length = __class__.length(lst)
         mid = int(length / 2)
 
-        if length % 2 == 0:
-            return (lst[mid] + lst[mid - 1]) / 2
-        return lst[mid]
+        return (lst[mid] + lst[mid - 1]) / 2 if length % 2 == 0 else lst[mid]
 
     @staticmethod
     def max(lst):

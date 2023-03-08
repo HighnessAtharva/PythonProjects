@@ -9,7 +9,5 @@ length = int(input("Password Length?: "))
 
 print("Generated Passwords are:\n========================\n ")
 for pwd in range(number):
-    password = ''
-    for c in range(length):
-        password += random.choice(chars)
+    password = ''.join(random.choice(chars) for _ in range(length))
     print(f'Password {pwd+1}: {password}')

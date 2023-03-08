@@ -33,8 +33,7 @@ Notebook Menu
         while True:
             self.display_menu()
             choice = input("Enter an option: ")
-            action = self.choices.get(choice)
-            if action:
+            if action := self.choices.get(choice):
                 action()
             else:
                 print("{0} is not a valid choice".format(choice))

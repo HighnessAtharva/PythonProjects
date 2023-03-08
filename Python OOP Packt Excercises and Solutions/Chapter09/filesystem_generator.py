@@ -27,7 +27,7 @@ log.children.append(File("kernel"))
 
 def walk(file):
     if isinstance(file, Folder):
-        yield file.name + "/"
+        yield f"{file.name}/"
         for f in file.children:
             yield from walk(f)
     else:

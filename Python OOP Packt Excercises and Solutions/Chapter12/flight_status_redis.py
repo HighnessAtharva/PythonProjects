@@ -11,10 +11,8 @@ class FlightStatusTracker:
     def change_status(self, flight, status):
         status = status.upper()
         if status not in self.ALLOWED_STATUSES:
-            raise ValueError("{} is not a valid status".format(status))
+            raise ValueError(f"{status} is not a valid status")
 
-        key = "flightno:{}".format(flight)
-        value = "{}|{}".format(
-            datetime.datetime.now().isoformat(), status
-        )
+        key = f"flightno:{flight}"
+        value = f"{datetime.datetime.now().isoformat()}|{status}"
         self.redis.set(key, value)

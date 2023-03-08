@@ -11,11 +11,11 @@ def test_a_function():
 
 
 class BaseTest:
-    def setup_class(cls):
-        print("setting up CLASS {0}".format(cls.__name__))
+    def setup_class(self):
+        print("setting up CLASS {0}".format(self.__name__))
 
-    def teardown_class(cls):
-        print("tearing down CLASS {0}\n".format(cls.__name__))
+    def teardown_class(self):
+        print("tearing down CLASS {0}\n".format(self.__name__))
 
     def setup_method(self, method):
         print("setting up METHOD {0}".format(method.__name__))

@@ -19,17 +19,17 @@ class Animal(object):
         self.name = name
 
     def eat(self, food):
-        print("%s is eating %s" % (self.name, food))
+        print(f"{self.name} is eating {food}")
 
 
 class Dog(Animal):
     def fetch(self, thing):
-        print("%s goes after the %s" % (self.name, thing))
+        print(f"{self.name} goes after the {thing}")
 
 
 class Cat(Animal):
     def swatstring(self):
-        print("%s shred the string!" % self.name)
+        print(f"{self.name} shred the string!")
 
 
 d = Dog("Roger")

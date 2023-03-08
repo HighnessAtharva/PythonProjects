@@ -14,8 +14,7 @@ def countdown(t):
 minsOrSecs = input(
     "Do you want to set the countdown by minutes[M] or by seconds[S]?")
 if minsOrSecs == 'M':
-    t = int(input("Enter the number of minutes for countdown: "))
-    t = 60*t
+    t = int(input("Enter the number of minutes for countdown: ")) * 60
     t = countdown(t)
 
 if minsOrSecs == 'S':

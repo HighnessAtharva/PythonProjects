@@ -13,7 +13,7 @@ def send_email(
     port=1025,
     headers=None
 ):
-    headers = headers if headers else {}
+    headers = headers or {}
 
     email = MIMEText(message)
     email["Subject"] = subject
@@ -41,11 +41,7 @@ class MailingList:
 
     def emails_in_groups(self, *groups):
         groups = set(groups)
-        emails = set()
-        for e, g in self.email_map.items():
-            if g & groups:
-                emails.add(e)
-        return emails
+        return {e for e, g in self.email_map.items() if g & groups}
 
     def send_mailing(
         self, subject, message, from_addr, *groups, headers=None
@@ -58,7 +54,7 @@ class MailingList:
     def save(self):
         with open(self.data_file, "w") as file:
             for email, groups in self.email_map.items():
-                file.write("{} {}\n".format(email, ",".join(groups)))
+                file.write(f'{email} {",".join(groups)}\n')
 
     def load(self):
         self.email_map = defaultdict(set)

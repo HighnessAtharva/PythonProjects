@@ -7,7 +7,4 @@ class SecretString:
 
     def decrypt(self, pass_phrase):
         """Only show the string if the pass_phrase is correct."""
-        if pass_phrase == self.__pass_phrase:
-            return self.__plain_string
-        else:
-            return ""
+        return self.__plain_string if pass_phrase == self.__pass_phrase else ""

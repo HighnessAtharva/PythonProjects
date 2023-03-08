@@ -43,16 +43,16 @@ while True:
             ext = (file.split(".")[-1]).lower()
 
             if ext in image_formats:
-                shutil.move(file, "images/" + file)
+                shutil.move(file, f"images/{file}")
             elif ext in audio_formats:
-                shutil.move(file, "audio/" + file)
+                shutil.move(file, f"audio/{file}")
             elif ext in video_formats:
-                shutil.move(file, "videos/" + file)
+                shutil.move(file, f"videos/{file}")
             elif ext in docs_formats:
-                shutil.move(file, "docs/" + file)
+                shutil.move(file, f"docs/{file}")
             elif ext in html:
-                shutil.move(file, "html/" + file)
+                shutil.move(file, f"html/{file}")
             else:
-                shutil.move(file, "others/" + file)
+                shutil.move(file, f"others/{file}")
     del files
     sleep(15)  # if program is using too much memory increae the value of sleep function

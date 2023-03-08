@@ -38,5 +38,4 @@ class CenteredStrategy:
 class ScaledStrategy:
     def make_background(self, img_file, desktop_size):
         in_img = Image.open(img_file)
-        out_img = in_img.resize(desktop_size)
-        return out_img
+        return in_img.resize(desktop_size)
